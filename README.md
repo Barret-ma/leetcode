@@ -1,12 +1,12 @@
-#leetcode answer
+# leetcode answer
 
 回答按照难度分类
 
-##Easy
+## Easy
 
-##Medium
+## Medium
 
 2. Add Two Numbers
 
-##Hard
+## Hard
 
