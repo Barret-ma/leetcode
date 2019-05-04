@@ -1,4 +1,4 @@
-from collections import deque
+# from collections import deque
 # for i in range(4):
 #     print i
 
@@ -70,6 +70,9 @@ from collections import deque
 # stack.append(1)
 # stack.append(2)
 # print stack.pop()
-dq = deque('abc')
-print len(dq)
-print dq.popleft()
+# dq = deque('abc')
+# print len(dq)
+# print dq.popleft()
+l = []
+l.append(None)
+print l

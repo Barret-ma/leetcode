@@ -12,7 +12,7 @@ for i in range(len(arr)):
     else:
         print arr[i][len(arr[i]) - 1]
         arr1.append(arr[i][0])
-i3 = len(arr1) - 1;
+i3 = len(arr1) - 1
 while (i3 >= 0):
-    print arr1[i3];
-    i3 = i3 -1;
+    print arr1[i3]
+    i3 = i3 -1
