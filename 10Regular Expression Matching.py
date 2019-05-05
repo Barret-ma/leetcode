@@ -22,7 +22,7 @@ class Solution(object):
 test = Solution()
 # print test.isMatch('ab', 'a*b');
 
-print test.isMatch('aaa', 'a*a');
+print test.isMatch('aaa', 'a*a')
 
 # print test.isMatch('', 'a*');
 
