@@ -73,6 +73,8 @@
 # dq = deque('abc')
 # print len(dq)
 # print dq.popleft()
-l = []
-l.append(None)
+# l = []
+# l.append(None)
+# print l
+l = [0 for _ in range(10)]
 print l
