@@ -1,12 +1,11 @@
 # Definition for a binary tree node.
-# class TreeNode(object):
-#     def __init__(self, x):
-#         self.val = x
-#         self.left = None
-#         self.right = None
+class TreeNode(object):
+    def __init__(self, x):
+        self.val = x
+        self.left = None
+        self.right = None
 
 class Solution(object):
-    mn = float('inf')
     def getMinimumDifference(self, root):
         """
         :type root: TreeNode
@@ -14,13 +13,27 @@ class Solution(object):
         """
         if not root:
             return
-        self.travel(root)
-        return self.mn
-    def travel(self, root):
-        if not root:
-            return
-        if (root.right and abs(root.val - root.right.val) < self.mn):
-            self.mn = abs(root.val - root.right.val)
-        elif (root.left and abs(root.val - root.left.val) < self.mn):
-            self.mn = abs(root.val - root.left.val)
-        return self.travel(root.left) and self.travel(root.right)
+        result = []
+        self.travel(root, result)
+        mn = float('inf')
+        for i in range(1, len(result)):
+            if result[i] - result[i - 1] < mn:
+                mn = result[i] - result[i - 1]
+        return mn
+    def travel(self, root, res):
+        if root.left:
+            self.travel(root.left, res)
+        res.append(root.val)
+        if root.right:
+            self.travel(root.right, res)
+
+s = Solution()
+
+root = TreeNode(1)
+left = TreeNode(2)
+right = TreeNode(4)
+
+root.right = right
+right.left = left
+
+s.getMinimumDifference(root)
