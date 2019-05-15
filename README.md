@@ -1,6 +1,6 @@
 ## 题目分类
 
-### 动态规划
+#### 动态规划
 
   * [790. Domino and Tromino Tiling](https://leetcode.com/problems/domino-and-tromino-tiling/), [answer](https://www.youtube.com/watch?v=S-fUTfqrdq8)
 
@@ -9,6 +9,7 @@
 #### BST
 
   * [98. Validate Binary Search Tree](https://leetcode.com/problems/validate-binary-search-tree/), [answer]()
+  
 ## 参考链接
 
 [花花酱](https://zxi.mytechroad.com/blog/)
