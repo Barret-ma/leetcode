@@ -36,11 +36,15 @@ class TreeNode(object):
         self.right = None
 
 class Solution(object):
+    rootVal = 0
     def isValidBST(self, root):
         """
         :type root: TreeNode
         :rtype: bool
         """
+
+        if root:
+            self.rootVal = root.val
         return self.travel(root)
 
     def travel(self, root):
