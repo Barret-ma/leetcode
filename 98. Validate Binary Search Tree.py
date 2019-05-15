@@ -42,30 +42,28 @@ class Solution(object):
         :type root: TreeNode
         :rtype: bool
         """
+        return self.travel(root, -float('inf'), float('inf'))
 
-        if root:
-            self.rootVal = root.val
-        return self.travel(root)
-
-    def travel(self, root):
+    def travel(self, root, mn, mx):
         if not root:
             return True
-        if (root.left and root.left.val >= root.val) or (root.right and root.right.val <= root.val):
+        
+        if (root.val <= mn) or (root.val >= mx):
             return False
-        return self.travel(root.left) and self.travel(root.right)
+        return self.travel(root.left, mn, root.val) and self.travel(root.right, root.val, mx)
         
     
-root = TreeNode(1)
-left = TreeNode(1)
-right = TreeNode(4)
+root = TreeNode(10)
+left = TreeNode(5)
+right = TreeNode(15)
 
-node = TreeNode(3)
-node2 = TreeNode(0)
+node = TreeNode(6)
+node2 = TreeNode(20)
 
 root.left = left
-# root.right = right
-# right.left = node
-# node.right = node2
+root.right = right
+right.left = node
+node.right = node2
 
 s = Solution()
 print(s.isValidBST(root))
