@@ -54,23 +54,36 @@ class Solution(object):
         :type root: TreeNode
         :rtype: None Do not return anything, modify root in-place instead.
         """
-        result = []
-        self.travel(root, result)
-        print(result)
+        self.morrisInorder(root)
 
-    def travel(self, root, res):
-        if not root:
-            res.append(None)
-            return
-        self.travel(root.left, res)
-        res.append(root.val)
-        self.travel(root.right, res)
+    def morrisInorder(self, root):
+        cur, prev = root, None
+        first, second, parent = None, None, None
 
-# def createTreeNode(nodeList):
-#     root = None
-#     for nodeVal in nodeList:
-#         root = TreeNode(nodeVal)
-        
+        while cur:
+            if not cur.left:
+                if parent and parent.val > cur.val:
+                    if not first:
+                        first = parent
+                    second = cur
+                parent = cur
+                cur = cur.right
+            else:
+                prev = cur.left
+                while prev.right and prev.right != cur:
+                    prev = prev.right
+                if not prev.right:
+                    prev.right = cur
+                    cur = cur.left
+                else:
+                    prev.right = None
+                    if parent.val > cur.val:
+                        if not first:
+                            first = parent
+                        second = cur
+                    parent = cur
+                    cur = cur.right
+        first.val, second.val = second.val, first.val   
 
 root = TreeNode(1)
 node1 = TreeNode(3)
