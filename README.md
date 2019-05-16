@@ -9,6 +9,7 @@
 
   * [98. Validate Binary Search Tree](https://leetcode.com/problems/validate-binary-search-tree/), [【Answer】](https://zxi.mytechroad.com/blog/tree/leetcode-98-validate-binary-search-tree/)
   * [230. Kth Smallest Element in a BST](https://leetcode.com/problems/kth-smallest-element-in-a-bst/), [【Answer】](http://www.cnblogs.com/grandyang/p/4620012.html)
+  * [99. Recover Binary Search Tree](https://leetcode.com/problems/recover-binary-search-tree/), [【Answer】](http://www.cnblogs.com/grandyang/p/4298069.html)
   
 ## 参考链接
 
