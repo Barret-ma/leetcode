@@ -16,6 +16,14 @@ n3.right = n6
 n5.left = n7
 n5.right = n8
 
+    #         1
+    #       /   \
+    #      2     3
+    #     / \     \
+    #    4   5     6
+    #       / \
+    #      7   8
+
 def inorder(node):
     result = []
     def travel(node, res):
@@ -44,5 +52,26 @@ def inorderLoop(root):
         root = root.right
     return result
     
-print inorder(root)
-print inorderLoop(root)
+def morrisInorder(root):
+    cur, prev = root, None
+    result = []
+    while cur:
+        if not cur.left:
+            result.append(cur.val)
+            cur = cur.right
+        else:
+            prev = cur.left
+            while prev.right and prev.right != cur:
+                prev = prev.right
+            if not prev.right:
+                prev.right = cur
+                cur = cur.left
+            else:
+                prev.right = None
+                result.append(cur.val)
+                cur = cur.right
+    return result
+
+# print inorder(root)
+# print inorderLoop(root)
+print(morrisInorder(root))
