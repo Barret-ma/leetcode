@@ -17,11 +17,11 @@
 
 
 # Definition for a binary tree node.
-# class TreeNode(object):
-#     def __init__(self, x):
-#         self.val = x
-#         self.left = None
-#         self.right = None
+class TreeNode(object):
+    def __init__(self, x):
+        self.val = x
+        self.left = None
+        self.right = None
 
 class Solution(object):
     def sortedArrayToBST(self, nums):
@@ -29,3 +29,15 @@ class Solution(object):
         :type nums: List[int]
         :rtype: TreeNode
         """
+        return self.generateBST(nums, 0, len(nums) - 1)
+    def generateBST(self, nums, left, right):
+        if left > right:
+            return None
+        mid = left + (right - left) / 2
+        node = TreeNode(nums[mid])
+        node.left = self.generateBST(nums, left, mid - 1)
+        node.right = self.generateBST(nums, mid + 1, right)
+        return node
+    
+s = Solution()
+print(s.sortedArrayToBST([-10,-3,0,5,9]))
