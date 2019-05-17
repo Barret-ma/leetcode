@@ -17,15 +17,18 @@ class Solution(object):
         :type k: int
         :rtype: int
         """
-        res = 0
+        if not nums:
+            return 0
+        ans = 0
         sum = 0
-        n = len(nums)
-        m = collections.defaultdict()
-        for i in range(n):
-            sum += nums[i]
-            res += m[sum - k]
-            m[sum] += 1
-        return res
+        counts = collections.defaultdict(lambda: 0)
+        counts[0] = 1
+        for num in nums:
+            sum += num
+            print(sum - k)
+            ans += counts[sum - k]
+            counts[sum] += 1
+        return ans
 
 
 s = Solution()
