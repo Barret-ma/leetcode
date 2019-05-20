@@ -10,6 +10,10 @@
   * [98. Validate Binary Search Tree](https://leetcode.com/problems/validate-binary-search-tree/), [【Answer】](https://zxi.mytechroad.com/blog/tree/leetcode-98-validate-binary-search-tree/)
   * [230. Kth Smallest Element in a BST](https://leetcode.com/problems/kth-smallest-element-in-a-bst/), [【Answer】](http://www.cnblogs.com/grandyang/p/4620012.html)
   * [99. Recover Binary Search Tree](https://leetcode.com/problems/recover-binary-search-tree/), [【Answer】](http://www.cnblogs.com/grandyang/p/4298069.html)
+  * [501. Find Mode in Binary Search Tree](https://leetcode.com/problems/find-mode-in-binary-search-tree/), [【Answer】](https://zxi.mytechroad.com/blog/tree/leetcode-501-find-mode-in-binary-search-tree/), [【Answer】](http://www.cnblogs.com/grandyang/p/6436150.html)
+
+#### HashTable
+  * [560. Subarray Sum Equals K](https://leetcode.com/problems/subarray-sum-equals-k/), [【Answer】](http://zxi.mytechroad.com/blog/hashtable/leetcode-560-subarray-sum-equals-k/)
   
 ## 参考链接
 
