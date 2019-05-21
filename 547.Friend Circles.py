@@ -41,27 +41,67 @@
 # M[i][i] = 1 for all students.
 # If M[i][j] = 1, then M[j][i] = 1.
 
+# class Solution(object):
+#     def findCircleNum(self, M):
+#         """
+#         :type M: List[List[int]]
+#         :rtype: int
+#         """
+#         if not M or not M[0]:
+#             return 0
+        
+#         ans = 0
+#         n = len(M)
+#         for i in range(n):
+#             if M[i][i] == 1:
+#                 ans += 1
+#                 self.dfs(M, i, n)
+#         return ans
+#     def dfs(self, grid, curr, n):
+#         for i in range(n):
+#             if grid[curr][i] == 1:
+#                 grid[curr][i] = grid[i][curr] = 0
+#                 self.dfs(grid, i, n)
+
+class UnionFind(object):
+    def __init__(self, n):
+        self.weight = [0] * (n + 1)
+        self.id = [0] * (n + 1)
+        for i in range(n + 1):
+            self.id[i] = i
+    def find(self, p):
+        if self.id[p] != p:
+            self.id[p] = self.find(self.id[p])
+        return self.id[p]
+    def union(self, p, q):
+        pv = self.find(p)
+        qv = self.find(q)
+        if pv == qv:
+            return False
+        if self.weight[pv] > self.weight[qv]:
+            self.id[qv] = pv
+        elif self.weight[pv] < self.weight[qv]:
+            self.id[pv] = qv
+        else:
+            self.id[pv] = qv
+            self.weight[qv] += 1
+        return True
+
 class Solution(object):
     def findCircleNum(self, M):
         """
         :type M: List[List[int]]
         :rtype: int
         """
-        if not M or not M[0]:
-            return 0
-        
-        ans = 0
         n = len(M)
+        union = UnionFind(n)
         for i in range(n):
-            if M[i][i] == 1:
-                ans += 1
-                self.dfs(M, i, n)
-        return ans
-    def dfs(self, grid, curr, n):
+            for j in range(i + 1, n):
+                if (M[i][j] == 1): union.union(i, j)
+        circles = set()
         for i in range(n):
-            if grid[curr][i] == 1:
-                grid[curr][i] = grid[i][curr] = 0
-                self.dfs(grid, i, n)
+            circles.add(union.find(i))
+        return len(circles)
 
 s = Solution()
 print(s.findCircleNum(
