@@ -14,6 +14,10 @@
 
 #### HashTable
   * [560. Subarray Sum Equals K](https://leetcode.com/problems/subarray-sum-equals-k/), [【Answer】](http://zxi.mytechroad.com/blog/hashtable/leetcode-560-subarray-sum-equals-k/)
+
+#### Search
+  * [547. Friend Circles](https://leetcode.com/problems/friend-circles/), [【Answer】](https://zxi.mytechroad.com/blog/graph/leetcode-547-friend-circles/)
+  * [200. Number of Islands](https://leetcode.com/problems/number-of-islands/), [【Answer】](https://zxi.mytechroad.com/blog/searching/leetcode-200-number-of-islands/)
   
 ## 参考链接
 
