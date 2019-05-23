@@ -1,7 +1,8 @@
 ## 题目分类
 
 #### 动态规划
-
+  * [5. Longest Palindromic Substring](https://leetcode.com/problems/longest-palindromic-substring/), [【Answer】](http://www.cnblogs.com/grandyang/p/4257740.html)
+  * [139. Word Break](https://leetcode.com/problems/word-break/), [【Answer】](http://www.cnblogs.com/grandyang/p/4464476.html)
   * [790. Domino and Tromino Tiling](https://leetcode.com/problems/domino-and-tromino-tiling/), [【Answer】](https://zxi.mytechroad.com/blog/dynamic-programming/leetcode-790-domino-and-tromino-tiling/)
   * [801. Minimum Swaps To Make Sequences Increasing](https://leetcode.com/problems/minimum-swaps-to-make-sequences-increasing/), [【Answer】](https://zxi.mytechroad.com/blog/dynamic-programming/leetcode-801-minimum-swaps-to-make-sequences-increasing/)
   
