@@ -23,7 +23,17 @@ class Solution(object):
         n = len(nums)
         dp = [0] * n
         dp[0] = 1
-        ans = 0
-        for num in nums:
-            pass
-        return ans
+        # ans = 0
+        for i in range(1, n):
+            mx = 1
+            for j in range(i):
+                if nums[i] > nums[j]:
+                    mx = max(mx, dp[j] + 1)
+            dp[i] = mx
+        return max(dp)
+
+s = Solution()
+# s.lengthOfLIS([10,9,2,5,3,7,101,18])
+# s.lengthOfLIS([1,5,2,6,3,7,4,8])
+print(s.lengthOfLIS([1, 1, 1]))
+# print s.lengthOfLIS([1,0])
