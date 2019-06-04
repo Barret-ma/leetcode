@@ -86,8 +86,5 @@ class Solution(object):
 
 s = Solution()
 print(s.findWords([
-    ['o','a','o','n'],
-    ['e','t','a','e'],
-    ['i','h','e','r'],
-    ['i','f','l','v']
-], ["oath","pea","eat","rain"]))
+    ["a","b"],["c","d"]
+], ["ab","cb","ad","bd","ac","ca","da","bc","db","adcb","dabc","abb","acb"]))
