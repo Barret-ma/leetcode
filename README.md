@@ -26,6 +26,9 @@
 
 #### Graph
   * [827. Making A Large Island](https://leetcode.com/problems/making-a-large-island/), [【Answer】](https://zxi.mytechroad.com/blog/graph/leetcode-827-making-a-large-island/)
+
+#### BIT
+  * [315. Count of Smaller Numbers After Self](https://leetcode.com/problems/count-of-smaller-numbers-after-self/submissions/), [【Answer】](https://zxi.mytechroad.com/blog/algorithms/array/leetcode-315-count-of-smaller-numbers-after-self/)
   
 ## 参考链接
 
