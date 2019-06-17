@@ -43,51 +43,54 @@ class Solution(object):
         n = len(board[0])
 
         wordMap = defaultdict(lambda: 0)
+        pathMap = defaultdict(lambda: 0)
         results = set()
         for word in words:
             wordMap[word] = 1
+            for i in range(len(word)):
+                pathMap[word[:i]] = 1
             # wordMap[word[::-1]] = 1
         
         for i in range(m):
             for j in range(n):
-                result = self.dfs(board, '', i, j, wordMap)
-                if result:
-                    results.add(result)
+                self.dfs(board, '', i, j, wordMap, results, pathMap)
+                # if result:
+                #     results.add(result)
         return list(results)
 
-    def dfs(self, grid, str, x, y, wordMap):
+    def dfs(self, grid, str, x, y, wordMap, results, pathMap):
         if x < 0 or y < 0 or x >= len(grid) or y >= len(grid[0]) or grid[x][y] == 0:
             return False
         
         temp = grid[x][y]
         str += grid[x][y]
         if str in wordMap:
-            return str
+            results.add(str)
         isIn = False
-        for (key, value) in wordMap.items():
-            if str == key[:len(str)]:
-                isIn = True
-                break
+        # for (key, value) in wordMap.items():
+        #     if str == key[:len(str)]:
+        #         isIn = True
+        #         break
+        if str in pathMap:
+            isIn = True
         if not isIn:
             return False
 
         grid[x][y] = 0
-        x1 = self.dfs(grid, str, x + 1, y, wordMap)
-        x2 = self.dfs(grid, str, x - 1, y, wordMap)
-        x3 = self.dfs(grid, str, x, y + 1, wordMap)
-        x4 = self.dfs(grid, str, x, y - 1, wordMap)
+        self.dfs(grid, str, x + 1, y, wordMap, results, pathMap)
+        self.dfs(grid, str, x - 1, y, wordMap, results, pathMap)
+        self.dfs(grid, str, x, y + 1, wordMap, results, pathMap)
+        self.dfs(grid, str, x, y - 1, wordMap, results, pathMap)
         # if not r:
         grid[x][y] = temp
-        if x1 or x2 or x3 or x4:
-            return x1 or x2 or x3 or x4
+        # if x1 or x2 or x3 or x4:
+        #     return x1 or x2 or x3 or x4
         
         # else:
         #     return r
 
 s = Solution()
-print(s.findWords([
-    ['o','a','o','n'],
-    ['e','t','a','e'],
-    ['i','h','e','r'],
-    ['i','f','l','v']
-], ["oath","pea","eat","rain"]))
+print(s.findWords(
+    [["a","b"],["c","d"]],
+    ["ab","cb","ad","bd","ac","ca","da","bc","db","adcb","dabc","abb","acb"]
+))
