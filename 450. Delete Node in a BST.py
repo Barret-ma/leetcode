@@ -50,44 +50,31 @@ class Solution(object):
         :rtype: TreeNode
         """
         if not root:
-            return
-        cur = root
-        pre = TreeNode(-1)
-        pre.right = cur
-        while cur:
-            if key > cur.val:
-                pre = cur
-                cur = cur.right
-            elif key < cur.val:
-                pre = cur
-                cur = cur.left
-            else:
-                break
-        if not cur:
-            if pre.val == key:
-                cur == None
-            return
-
-
-        left = cur.left
-        right = cur.right
-        rightPointer = right
-
-        while rightPointer and rightPointer.left:
-            rightPointer = rightPointer.left
-        if rightPointer:
-            rightPointer.left = left
-        elif left:
-            if pre.val > left.val:
-                pre.left = left
-            else:
-                pre.right = left
-        if pre.val == -1:
-            return right
-        if pre.right and cur.val == pre.right.val:
-            pre.right = right
+            return root
+        if key > root.val:
+            root.right = self.deleteNode(root.right, key)
+        elif key < root.val:
+            root.left = self.deleteNode(root.left, key)
         else:
-            pre.left = right
+            newRoot = None
+            if not root.left:
+                newRoot = root.right
+            elif not root.right:
+                newRoot = root.left
+            else:
+                parent = root
+                newRoot = root.right
+                while newRoot.left:
+                    parent = newRoot
+                    newRoot = newRoot.left
+                
+                if parent != root:
+                    parent.left = newRoot.right
+                    newRoot.right = root.right
+                newRoot.left = root.left
+            root = None
+            return newRoot
+
         return root
 
 
