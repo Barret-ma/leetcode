@@ -36,7 +36,7 @@ class Solution(object):
         if nums[i] == target:
             return True
 
-        elif nums[i - 1] > target:
+        elif nums[i - 1] >= target and nums[0] <= target:
             self.binarySearch(nums[i + 1:len(nums)])
         else:
             self.binarySearch(nums[])
