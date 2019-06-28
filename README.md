@@ -28,7 +28,10 @@
   * [827. Making A Large Island](https://leetcode.com/problems/making-a-large-island/), [【Answer】](https://zxi.mytechroad.com/blog/graph/leetcode-827-making-a-large-island/)
 
 #### BIT
-  * [315. Count of Smaller Numbers After Self](https://leetcode.com/problems/count-of-smaller-numbers-after-self/submissions/), [【Answer】](https://zxi.mytechroad.com/blog/algorithms/array/leetcode-315-count-of-smaller-numbers-after-self/)
+  * [315. Count of Smaller Numbers After Self](https://leetcode.com/problems/count-of-smaller-numbers-after-self/submissions/), [【Answer】](https://zxi.mytechroad.com/blog/algorithms/array/leetcode-315-count-of-smaller-numbers-after-self/), [【Answer】](https://zxi.mytechroad.com/blog/divide-and-conquer/leetcode-154-find-minimum-in-rotated-sorted-array-ii/)
+
+#### Binary Search
+  * [154. Find Minimum in Rotated Sorted Array II](https://leetcode.com/problems/find-minimum-in-rotated-sorted-array-ii/), [【Answer】](https://www.cnblogs.com/grandyang/p/4040438.html)
   
 ## 参考链接
 
