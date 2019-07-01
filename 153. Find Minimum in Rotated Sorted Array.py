@@ -8,7 +8,8 @@
 
 # Example 1:
 
-# Input: [3,4,5,1,2] 
+# Input: [3,4,5,1,2]
+#         0 1 2 3 4
 # Output: 1
 # Example 2:
 
@@ -21,19 +22,35 @@ class Solution(object):
         :type nums: List[int]
         :rtype: int
         """
+        # if not nums:
+        #     return
+        # l = len(nums)
+        # if l == 1:
+        #     return nums[0]
+        # i = 1
+        # pre = nums[0]
+        # while i < l - 1 and pre < nums[i]:
+        #     pre = nums[i]
+        #     i += 1
+        # if i == l - 1 and pre < nums[i]:
+        #     return nums[0]
+        # return nums[i]
+
         if not nums:
             return
         l = len(nums)
-        if l == 1:
-            return nums[0]
-        i = 1
-        pre = nums[0]
-        while i < l - 1 and pre < nums[i]:
-            pre = nums[i]
-            i += 1
-        if i == l - 1 and pre < nums[i]:
-            return nums[0]
-        return nums[i]
+        left = 0
+        right = l - 1
+        if nums[left] > nums[right]:
+            while left != right - 1:
+                mid = (left + right) / 2
+                if nums[mid] > nums[left]:
+                    left = mid
+                else:
+                    right = mid
+            return min(nums[left], nums[right])
+        return nums[0]
+        
 
 s = Solution()
-print(s.findMin([0]))
+print(s.findMin([10,1,10,10,10]))
