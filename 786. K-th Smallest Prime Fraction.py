@@ -28,28 +28,35 @@ class Solution(object):
         """
         if not A:
             return
-        length = len(A)
+        n = len(A)
         left = 0
-        right = 1
-        p = 0
-        q = 1
-        cnt = 0
-        while True:
-            mid = left + (right - left) / 2.0
-            cnt = 0
+        right = 1.0
+
+        while left < right:
+            mid = (left + right) / 2.0
+            total = 0
             p = 0
-            j = 0
-            for i in range(length):
-                while j < length and A[i] > mid * A[j]:
+            q = 0
+            maxF = 0.0
+            j = 1
+            for i in range(n - 1):
+                while j < n and A[i] > mid * A[j]:
                     j += 1
-                cnt += length - j
-                if j < length and p * A[j] < q * A[i]:
+                if n == j:
+                    break
+                total += n - j
+                f = float(A[i]) / A[j]
+                if f > maxF:
                     p = A[i]
                     q = A[j]
-                # cnt +=
-            if cnt == K:
+                    maxF = f
+            if total == K:
                 return [p, q]
-            elif cnt < K:
+            elif total < K:
                 left = mid
             else:
                 right = mid
+
+
+s = Solution()
+print(s.kthSmallestPrimeFraction([1, 13, 17, 59], 6))
