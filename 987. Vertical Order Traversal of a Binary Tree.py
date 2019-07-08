@@ -58,7 +58,7 @@ class Solution(object):
         if not root:
             return []
         results = dict()
-        self.travelTree(root, results, 0)
+        self.travelTree(root, results, 0, 0)
         # print(len(results))
         # print(results)
         length = len(results)
@@ -69,7 +69,7 @@ class Solution(object):
         return orderList
         
 
-    def travelTree(self, root, results, x):
+    def travelTree(self, root, results, x, height):
         if not root:
             return
         self.min = min(x, self.min)
@@ -77,22 +77,30 @@ class Solution(object):
             results[x] = [root.val]
         else:
             results[x].append(root.val)
-        self.travelTree(root.left, results, x - 1)
-        self.travelTree(root.right, results, x + 1)
+        self.travelTree(root.left, results, x - 1, height + 1)
+        self.travelTree(root.right, results, x + 1, height + 1)
 
 
-root = None
-root2 = TreeNode(2)
+# [0,8,1,null,null,3,2,null,4,5,null,null,7,6]
+root = TreeNode(0)
+root8 = TreeNode(8)
+root1 = TreeNode(1)
 root3 = TreeNode(3)
+root2 = TreeNode(2)
 root4 = TreeNode(4)
 root5 = TreeNode(5)
-root6 = TreeNode(6)
 root7 = TreeNode(7)
-# root.left = root2
-# root.right = root3
-# root2.left = root4
-# root2.right = root5
-# root3.left = root6
-# root3.right = root7
+root6 = TreeNode(6)
+
+
+root.left = root8
+root.right = root1
+
+root1.left = root3
+root1.right = root2
+root2.left = root5
+root3.right = root4
+root5.right = root7
+root5.left = root6
 s = Solution()
 print(s.verticalTraversal(root))
