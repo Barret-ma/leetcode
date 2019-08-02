@@ -33,7 +33,8 @@ class Solution(object):
         :type q: TreeNode
         :rtype: TreeNode
         """
-
-    def dfs(self, root, p, q):
-        if not root:
-            return None
+        if any((not root, root == p, root == q)): return root
+        l = self.lowestCommonAncestor(root.left, p, q)
+        r = self.lowestCommonAncestor(root.right, p, q)
+        if not l or not r: return l if l else r
+        return root
