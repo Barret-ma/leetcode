@@ -13,26 +13,27 @@ class Solution(object):
         """
         results = []
         self.dfs(s, [], results)
-        print results
         return results
     def dfs(self, s, arr, results):
         if len(arr) > 4:
             return
         if len(arr) == 4 and len(s) == 0:
-            print arr
-            results.append(arr)
+            strIP = str(arr[0])
+            for i in range(1, len(arr)):
+                strIP = strIP + '.' + str(arr[i])
+            results.append(strIP)
             return
-        elif len(arr) == 4 and len(s) != 0:
-            return
-        for i in range(1, len(s)):
-            num = int(s[0:i])
+        for i in range(1, len(s) + 1):
+            currentIp = s[0:i]
+            if currentIp[0] == '0' and len(currentIp) > 1:
+                break
+            num = int(currentIp)
             if num > 255:
-                continue
+                break
             else:
+                if len(s[i:]) != 0 and len(arr) == 3:
+                    continue
                 self.dfs(s[i:], arr + [num], results)
 
-
-
 s = Solution()
-s.restoreIpAddresses('25525511135')
-
+s.restoreIpAddresses('010010')
