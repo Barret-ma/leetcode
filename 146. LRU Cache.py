@@ -24,6 +24,25 @@
 
 from collections import defaultdict
 
+class ListNode(object):
+    def __init__(self, key, value):
+        self.key = key
+        self.value = value
+        self.prev = None
+        self.next = None
+
+class DoubleList(object):
+    def __init__(self):
+        self.head = None
+        self.tail = None
+
+        pass
+    def move(self, position, list, node):
+        position.prev = node
+        node.prev.next = None
+        node.next = position
+        list.head = node
+        pass
 class LRUCache(object):
 
     def __init__(self, capacity):
@@ -31,18 +50,27 @@ class LRUCache(object):
         :type capacity: int
         """
         self.capacity = capacity
-        self.LRUList = list()
-        self.LRUMap = defaultdict(lambda: None)
+        self.keyMap = defaultdict(lambda: None)
+        self.list = DoubleList()
+        self.len = 0
+        # self.LRUList = list()
+        # self.LRUMap = defaultdict(lambda: None)
 
     def get(self, key):
         """
         :type key: int
         :rtype: int
         """
-        if self.LRUMap[key] != None:
-            return self.LRUList[self.LRUMap[key]]
+        if key in self.keyMap:
+            p = self.keyMap[key]
+            self.list.move(self.list.head, self.list, p)
+            return p.value
         else:
             return -1
+        # if self.LRUMap[key] != None:
+        #     return self.LRUList[self.LRUMap[key]]
+        # else:
+        #     return -1
 
     def put(self, key, value):
         """
@@ -50,22 +78,22 @@ class LRUCache(object):
         :type value: int
         :rtype: None
         """
-        if self.capacity == len(self.LRUList):
-            for i in self.LRUMap:
-                if self.LRUMap[i] == 0:
-                    del self.LRUMap[i]
-                else:
-                    self.LRUMap[i] = self.LRUMap[i] - 1
-        if self.LRUMap[key]:
-            index = self.LRUMap[key]
-            self.LRUList = self.LRUList[:index] + self.LRUList[index + 1:] + [value]
-            for i in self.LRUMap:
-                if i > index:
-                    self.LRUMap[i] = self.LRUMap[i] - 1
-            self.LRUMap[key] = len(self.LRUList)
-        else:
-            self.LRUList.append(value)
-            self.LRUMap[key] = len(self.LRUList) - 1
+        # if self.capacity == len(self.LRUList):
+        #     for i in self.LRUMap:
+        #         if self.LRUMap[i] == 0:
+        #             del self.LRUMap[i]
+        #         else:
+        #             self.LRUMap[i] = self.LRUMap[i] - 1
+        # if self.LRUMap[key]:
+        #     index = self.LRUMap[key]
+        #     self.LRUList = self.LRUList[:index] + self.LRUList[index + 1:] + [value]
+        #     for i in self.LRUMap:
+        #         if i > index:
+        #             self.LRUMap[i] = self.LRUMap[i] - 1
+        #     self.LRUMap[key] = len(self.LRUList)
+        # else:
+        #     self.LRUList.append(value)
+        #     self.LRUMap[key] = len(self.LRUList) - 1
 
 lru = LRUCache(2)
 
