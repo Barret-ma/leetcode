@@ -34,22 +34,27 @@ class Node(object):
         self.val = val
         self.neighbors = neighbors
 """
-from collections import defaultdict
+
 class Solution(object):
     def cloneGraph(self, node):
         """
         :type node: Node
         :rtype: Node
         """
-        visitedM = defaultdict(lambda: None)
-        self.dfs(node, visitedM)
-        return visitedM[node]
-    def dfs(self, node, m):
-        if node == None:
+        # visitedM = defaultdict(lambda: None)
+        if not node:
             return None
-        if node in m:
-            return m[node]
-        clone = Node(node.val, [])
-        m[node] = clone
-        for _n in node.neighbors:
-            clone.neighbors.append(self.dfs(_n, m))
+        nodeCopy = Node(node.val, [])
+        dic = {node: nodeCopy}
+        self.dfs(node, dic)
+        return nodeCopy
+
+    def dfs(self, node, dic):
+        for neighbor in node.neighbors:
+            if neighbor not in dic:
+                nodeCopy = Node(neighbor.val, [])
+                dic[neighbor] = nodeCopy
+                dic[node].neighbors.append(nodeCopy)
+                self.dfs(neighbor, dic)
+            else:
+                dic[node].neighbors.append(dic[neighbor])
