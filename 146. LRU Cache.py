@@ -36,13 +36,52 @@ class DoubleList(object):
         self.head = None
         self.tail = None
 
-        pass
     def move(self, position, list, node):
-        position.prev = node
-        node.prev.next = None
-        node.next = position
-        list.head = node
-        pass
+        
+        # if node.prev != None:
+        #     node.prev.next = node.next
+        # if node.next != None:
+        #     node.next.prev = node.prev
+        if node == position:
+            return
+        prevP = node.prev
+        nextP = node.next
+        if self.tail == node and prevP != None:
+            self.tail = prevP
+        if list.head.next != None:
+            node.prev = None
+            position.prev = node
+            node.next = position
+            list.head = node
+        if prevP != None:
+            prevP.next = nextP
+        if nextP != None:
+            nextP.prev = prevP
+
+
+    def delTail(self, node):
+        key = self.tail.key
+        if self.head.next:
+            temp = self.tail.prev
+            temp.next = None
+            self.tail = temp
+            node.next = self.head
+            self.head.prev = node
+            self.head = node
+        else:
+            self.head = node
+            self.tail = node
+        return key
+    
+    def add(self, node):
+        if self.head == None:
+            self.head = node
+            self.tail = node
+            return
+        node.next = self.head
+        self.head.prev = node
+        self.head = node
+
 class LRUCache(object):
 
     def __init__(self, capacity):
@@ -67,10 +106,7 @@ class LRUCache(object):
             return p.value
         else:
             return -1
-        # if self.LRUMap[key] != None:
-        #     return self.LRUList[self.LRUMap[key]]
-        # else:
-        #     return -1
+        
 
     def put(self, key, value):
         """
@@ -78,38 +114,96 @@ class LRUCache(object):
         :type value: int
         :rtype: None
         """
-        # if self.capacity == len(self.LRUList):
-        #     for i in self.LRUMap:
-        #         if self.LRUMap[i] == 0:
-        #             del self.LRUMap[i]
-        #         else:
-        #             self.LRUMap[i] = self.LRUMap[i] - 1
-        # if self.LRUMap[key]:
-        #     index = self.LRUMap[key]
-        #     self.LRUList = self.LRUList[:index] + self.LRUList[index + 1:] + [value]
-        #     for i in self.LRUMap:
-        #         if i > index:
-        #             self.LRUMap[i] = self.LRUMap[i] - 1
-        #     self.LRUMap[key] = len(self.LRUList)
-        # else:
-        #     self.LRUList.append(value)
-        #     self.LRUMap[key] = len(self.LRUList) - 1
+        if key in self.keyMap:
+            p = self.keyMap[key]
+            p.value = value
+            self.list.move(self.list.head, self.list, p)
+            return
+        if self.len < self.capacity:
+            node = ListNode(key, value)
+            self.keyMap[key] = node
+            self.list.add(node)
+            self.len = self.len + 1
+        else:
+            node = ListNode(key, value)
+            self.keyMap[key] = node
+            delKey = self.list.delTail(node)
+            del self.keyMap[delKey]
+        
 
-lru = LRUCache(2)
+# lru = LRUCache(1)
 
-lru.put(1, 1)
-lru.put(2, 2)
-print(lru.get(1))    
-lru.put(3, 3)    
-print(lru.get(2)) 
-# lru.put(4, 4)    
-# lru.get(1)     
-# lru.get(3)       
-# lru.get(4)
+# lru.put(2, 1)
+# print(lru.get(2))
+# lru.put(3, 2)
+# print(lru.get(2))
+# print(lru.get(3))   
+# 
+# ==========2============ 
+# lru = LRUCache(2)
+
+# lru.put(2, 1)    
+# lru.put(2, 2)    
+# print(lru.get(2))
+# lru.put(1, 1)
+# lru.put(4, 1)
+# print(lru.get(2))
 
 
+# ==========3==============
+# lru = LRUCache(2)
+
+# lru.put(2, 1)  
+# lru.put(1, 1)  
+# lru.put(2, 3)
+# lru.put(4, 1)
+# print(lru.get(1))
+# print(lru.get(2))
 
 
+# ==========4==============
+# lru = LRUCache(3)
+
+# lru.put(1, 1)  
+# lru.put(2, 2)  
+# lru.put(3, 3)
+# lru.put(4, 4)
+# print(lru.get(4))
+# print(lru.get(3))
+# print(lru.get(2))
+# print(lru.get(1))
+# lru.put(5, 5)
+# print(lru.get(1))
+# print(lru.get(2))
+# print(lru.get(3))
+# print(lru.get(4))
+# print(lru.get(5))
+
+
+# ==========5==============
+lru = LRUCache(10)
+
+lru.put(10, 13)
+lru.put(3, 17)  
+lru.put(6, 11)
+lru.put(10, 5)
+lru.put(9, 10)
+
+print(lru.get(13))
+lru.put(2, 19)
+print(lru.get(2))
+print(lru.get(3))
+
+lru.put(5, 25)
+print(lru.get(8))
+lru.put(9, 22)
+lru.put(5, 5)
+lru.put(1, 30)
+print(lru.get(11))
+lru.put(9, 12)
+print(lru.get(7))
+print(lru.get(4))
+print(lru.get(5))
 # Your LRUCache object will be instantiated and called as such:
 # obj = LRUCache(capacity)
 # param_1 = obj.get(key)
