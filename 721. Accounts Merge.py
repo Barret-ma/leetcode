@@ -22,10 +22,11 @@ from collections import defaultdict
 class UnionSet(object):
     def __init__(self, list):
         self.parents = {}
+        self.owner = {}
         for emails in list:
-            for i in range(len(emails)):
+            for i in range(1, len(emails)):
                 self.parents[emails[i]] = emails[i]
-
+                self.owner[emails[i]] = emails[0]
 
     def union(self, p, q):
         pu = self.find(p)
@@ -35,8 +36,7 @@ class UnionSet(object):
         else:
             self.parents[qu] = p
         
-    def getUnion(self):
-        return self.parents
+
     def find(self, p):
         while p != self.parents[p]:
             self.parents[p] = self.find(self.parents[p])
@@ -49,19 +49,27 @@ class Solution(object):
         :type accounts: List[List[str]]
         :rtype: List[List[str]]
         """
-        owner = {}
+
         unionSet = UnionSet(accounts)
         for emails in accounts:
-            for i in range(0, len(emails) - 1):
+            for i in range(1, len(emails) - 1):
                 unionSet.union(emails[i], emails[i + 1])
-                owner[emails[0]] = []
-        unionMap = unionSet.getUnion()
-        
-        for email in unionMap:
+                
+        # unionMap = unionSet.getUnion()
+        m = defaultdict(lambda:set())
+        for account in accounts:
+            for i in range(1, len(account)):
+                p = unionSet.find(account[i])
+                # if p not in m or account[i] not in m[p]:
+                #     m[p].append(account[i])
+                m[p].add(account[i])
+        res = []
+        for email in m:
+            l = list(m[email])
+            l.sort()
+            res.append([unionSet.owner[email]] + l)
+        return res
 
-            pass
-
-        print('hello')
 s = Solution()
 print(s.accountsMerge([["John", "johnsmith@mail.com", "john00@mail.com"], ["John", "johnnybravo@mail.com"], ["John", "johnsmith@mail.com", "john_newyork@mail.com"], ["Mary", "mary@mail.com"]]))
 
