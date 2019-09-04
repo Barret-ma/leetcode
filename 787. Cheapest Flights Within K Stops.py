@@ -49,21 +49,28 @@ class Solution(object):
         # total = float('inf')
         for city in flights:
             if city[0] == src:
-                self.dfs(src, dst, K, pathMap, 0, city[2])
-        return self.total
-    def dfs(self, src, dst, K, pathMap, stops, total):
+                visited = {city[0]: True}
+                self.dfs(src, dst, K, pathMap, 0, 0, visited)
+        return self.total if self.total != float('inf') else -1
+    def dfs(self, src, dst, K, pathMap, stops, total, visited):
+        
         nextStop = pathMap[src]
         for cur in nextStop:
-            if cur[0] == dst and K == stops:
-                self.total = min(total, self.total)
-                return
+            if cur[0] == dst and K >= stops:
+                self.total = min(total + cur[1], self.total)
         if stops > K:
             return -1
         
         for n in nextStop:
-            self.dfs(n[0], dst, K, pathMap, stops + 1, total + n[1])
-                
+            if n[0] not in visited:
+                visited[n[0]] = True
+                self.dfs(n[0], dst, K, pathMap, stops + 1, total + n[1], visited)
+                del visited[n[0]]
 
 
 s = Solution()
-print(s.findCheapestPrice(3, [[0,1,100],[1,2,100],[0,2,500]], 0, 2, 0))
+print(s.findCheapestPrice(10,
+[[3,4,4],[2,5,6],[4,7,10],[9,6,5],[7,4,4],[6,2,10],[6,8,6],[7,9,4],[1,5,4],[1,0,4],[9,7,3],[7,0,5],[6,5,8],[1,7,6],[4,0,9],[5,9,1],[8,7,3],[1,2,6],[4,1,5],[5,2,4],[1,9,1],[7,8,10],[0,4,2],[7,2,8]],
+6,
+0,
+7))
