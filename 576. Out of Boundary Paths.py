@@ -33,18 +33,26 @@ class Solution(object):
         :type j: int
         :rtype: int
         """
-        dp = [[0 for i in range(n)] for _ in range(m)]
+        dp = [[0 for x in range(n)] for _ in range(m)]
         dirs = [(1, 0), (0, 1), (-1, 0), (0, -1)]
         dp[i][j] = 1
         totalOut = 0
-        for i in N:
-            dp1 = [[0 for i in range(n)] for _ in range(m)]
-            for i in range(m):
+        for q in range(N):
+            dp1 = [[0 for w in range(n)] for _ in range(m)]
+            for c in range(m):
                 for j in range(n):
                     for dir in dirs:
                         x = j + dir[0]
-                        y = i + dir[1]
-                        if x < 0 or x >= N or y < 0 or y >= N:
-                            pass
+                        y = c + dir[1]
+                        if (x < 0 or x >= n or y < 0 or y >= m):
+                            if dp[j][c] == 1:
+                                totalOut += 1
+                            continue
+                        dp1[x][y] += dp[x][y]
+            dp = dp1
+        print(totalOut)
+        return totalOut
                         
-            pass
+s = Solution()
+s.findPaths(2, 2, 2, 0, 0)
+            
