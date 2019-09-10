@@ -39,20 +39,20 @@ class Solution(object):
         totalOut = 0
         for q in range(N):
             dp1 = [[0 for w in range(n)] for _ in range(m)]
-            for c in range(m):
+            for l in range(m):
                 for j in range(n):
                     for dir in dirs:
                         x = j + dir[0]
-                        y = c + dir[1]
+                        y = l + dir[1]
                         if (x < 0 or x >= n or y < 0 or y >= m):
-                            if dp[j][c] == 1:
+                            if dp[l][j] >= 1:
                                 totalOut += 1
                             continue
-                        dp1[x][y] += dp[x][y]
+                        dp1[l][j] += dp[y][x]
             dp = dp1
         print(totalOut)
-        return totalOut
+        return totalOut % 1000000007
                         
 s = Solution()
 s.findPaths(2, 2, 2, 0, 0)
-            
+s.findPaths(1, 3, 3, 0, 1)
