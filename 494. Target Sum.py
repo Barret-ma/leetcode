@@ -32,6 +32,16 @@ class Solution(object):
             total += i
         if total < S:
             return 0
-        
+        kOffset = total
+        kMaxN = total * 2 + 1
+        ways = [0 for _ in range(kMaxN)]
+        ways[kOffset] = 1
+        for num in nums:
+            tmp = [0 for _ in range(kMaxN)]
+            for i in range(num, kMaxN - num):
+                tmp[i + num] += ways[i]
+                tmp[i - num] += ways[i]
+            ways = tmp
+        return ways[S + kOffset]
 s = Solution()
 print(s.findTargetSumWays([1, 1, 1, 1, 1], 3))
