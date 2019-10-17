@@ -23,21 +23,29 @@ class Solution(object):
         :type s: str
         :rtype: int
         """
+        if not s:
+            return 0
+        if len(s) == 1:
+            return 1
         window = []
         res = 0
         visitMap = defaultdict(lambda: None)
-        for i in range(len(s)):
-            print(s[i])
+        i = 0
+        while i < len(s):
             if (s[i] not in visitMap):
-                visitMap[s[i]] = True
+                visitMap[s[i]] = i
                 window.append(s[i])
                 # res = max(res, len(window))
             else:
+                i = visitMap[s[i]]
                 res = max(res, len(window))
                 window = []
-                window.append(s[i])
-
-                pass
+                visitMap.clear()
+                # visitMap[s[i]] = True
+                # window.append(s[i])
+            i += 1
+        res = max(res, len(window))
+        return res
                 
 
 s = Solution()
