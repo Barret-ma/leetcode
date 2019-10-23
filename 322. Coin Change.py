@@ -1,3 +1,4 @@
+# coding=UTF-8
 # You are given coins of different denominations 
 # and a total amount of money amount. Write a function 
 # to compute the fewest number of coins that you need 
@@ -25,3 +26,23 @@ class Solution(object):
         :type amount: int
         :rtype: int
         """
+        if amount == 0:
+            return 0
+        if not coins:
+            return -1
+        dp = [float('inf') for _ in range(amount + 1)]
+        for coin in coins:
+            if coin > amount:
+                continue
+            dp[coin] = 1
+        for i in range(amount + 1):
+            minCnt = float('inf')
+            for coin in coins:
+                if i - coin >= 0 :
+                    minCnt = min(minCnt, dp[coin] + dp[i - coin])
+            dp[i] = min(minCnt, dp[i])
+        return dp[amount] if dp[amount] != float('inf') else -1
+
+
+s = Solution()
+print(s.coinChange([1,2147483647], 2))
