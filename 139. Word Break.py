@@ -35,11 +35,13 @@ class Solution(object):
         dp[0] = True
         for i in range(len(dp)):
             for j in range(i):
+                print(s[j:i])
                 if dp[j] and s[j:i] in dictSet:
                     dp[i] = True
                     break
         return dp.pop()
 
 s = Solution()
-print(s.wordBreak("leetcode", ["leet", "code"]))
+# print(s.wordBreak("leetcode", ["leet", "code"]))
+print(s.wordBreak("catsanddog", ["cats", "dog", "sand", "and", "cat"]))
 

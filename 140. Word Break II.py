@@ -35,30 +35,45 @@
 # wordDict = ["cats", "dog", "sand", "and", "cat"]
 # Output:
 # []
-from collections import defaultdict
 
+from collections import defaultdict
 class Solution(object):
+    m = defaultdict(lambda: list)
     def wordBreak(self, s, wordDict):
         """
         :type s: str
         :type wordDict: List[str]
         :rtype: List[str]
         """
-        m = defaultdict(lambda: [])
-        return self.helper(s, wordDict, m)
-
-    def helper(self, s, wordDict, m):
-        if m[s]:
-            return m[s]
+        # words = set(wordDict)
+        # mem = {}
+        # def wordBreak(s):
+        #     if s in mem:
+        #         return mem[s]
+        #     ans = []
+        #     if s in words:
+        #         ans.append(s)
+        #     for i in range(1, len(s)):
+        #         right = s[i:]
+        #         if right not in words: continue
+        #         ans += []
+        self.m = defaultdict(lambda: list)
+        return self.helper(s, wordDict)
+    def helper(self, s, wordDict):
+        if s in self.m:
+            return self.m[s]
         if not s:
-            return ""
+            return [""]
         res = []
         for word in wordDict:
-            if s[0: len(word) + 1] != word: continue
-            rem = self.helper(s[len(word) + 1:], wordDict, m)
-            for str in rem:
-                res.append(word + ("" if not len(str) else str))
-        m[s] = res
-        return m[s]
+            if s[0:len(word)] != word:
+                continue
+            rem = self.helper(s[len(word):], wordDict)
+            for s1 in rem:
+                res.append(word + ("" if not s1 else " " + s1))
+        self.m[s] = res
+        return self.m[s]
+        
 s = Solution()
 print(s.wordBreak("catsanddog", ["cat", "cats", "and", "sand", "dog"]))
+# print(s.wordBreak("catsanddog", ["cat", "cats", "and", "sand", "s", "an", "d"]))
