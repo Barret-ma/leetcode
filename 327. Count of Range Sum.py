@@ -12,7 +12,7 @@
 # Input: nums = [-2,5,-1], lower = -2, upper = 2,
 # Output: 3 
 # Explanation: The three ranges are : [0,0], [2,2], [0,2] and their respective sums are: -2, -1, 2.
-import copy
+import bisect
 class Solution(object):
     def countRangeSum(self, nums, lower, upper):
         """
@@ -21,37 +21,35 @@ class Solution(object):
         :type upper: int
         :rtype: int
         """
-        v = copy.deepcopy(nums)
-        l = len(nums)
-        v.sort()
-        if v[l - 1] < lower or v[0] > upper:
-            return 0
-        result = []
-        def dfs(arr, total):
-            for i in range(len(arr)):
-                result.append(arr[i] + total)
-                dfs(arr[i + 1:], arr[i] + total)
+        sums = nums[:]
+        for x in range(1, len(sums)):
+            sums[x] += sums[x - 1]
+        osums = sorted(set(sums))
+        ft = FenwickTree(len(osums))
+        ans = 0
+        for sumi in sums:
+            left = bisect.bisect_left(osums, sumi - upper)
+            right = bisect.bisect_right(osums, sumi - lower)
+            ans += ft.sum(right) - ft.sum(left) + (lower <= sumi <= upper)
+            ft.add(bisect.bisect_right(osums, sumi), 1)
+        return ans
 
-        dfs(nums, 0)
-        result.sort()
-        print(result)
-        l1 = len(result)
+class FenwickTree(object):
+    def __init__(self, n):
+        self.n = n
+        self.sums = [0] * (n + 1)
+    def add(self, x, val):
+        while x <= self.n:
+            self.sums[x] += val
+            x += self.lowbit(x)
+    def lowbit(self, x):
+        return x & -x
+    def sum(self, x):
         res = 0
-        bit = [0] * (l1 + 1)
-        for i in range(l1):
-            if result[i] >= lower and result[i] <= upper:
-                res += self.getSum(i + 1, bit)
-                self.update(i + 1, bit)
-    def update(self, i, bit):
-        while i < len(bit):
-            bit[i] += 1
-            i += (i & -i)
-    def getSum(self, i, bit):
-        total = 0
-        while i > 0:
-            total += bit[i]
-            i -= (i & -i)
-        return total
+        while x > 0:
+            res += self.sums[x]
+            x -= self.lowbit(x)
+        return res
         
 
 s = Solution()
