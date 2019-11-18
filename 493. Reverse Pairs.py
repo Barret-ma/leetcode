@@ -6,6 +6,7 @@
 # Example1:
 
 # Input: [1,3,2,3,1]
+# 1, 1, 2, 3, 3
 # Output: 2
 # Example2:
 
@@ -64,12 +65,13 @@ class Solution(object):
         bit = [0] * (n + 1)
         v.sort()
         m = dict()
-
+    # [1,1,2,3,3]
+#      0,1,2,3,4
         def lower_bound(arr, target):
             low, high = 0, len(arr) - 1
             pos = len(arr)
             while low<high:
-                mid = (low+high)/2
+                mid = (low+high)/2 
                 if arr[mid] < target:
                     low = mid+1
                 else:#>=
@@ -81,9 +83,11 @@ class Solution(object):
 
         for i in range(n):
             m[v[i]] = i + 1
+        print(m)
         for i in range(n - 1, -1, -1):
             res += self.getSum(lower_bound(v, nums[i] / 2.0) - 0, bit)
             self.update(m[nums[i]], bit)
+        print(bit)
         return res
 
     def getSum(self, i, bit):
@@ -97,4 +101,4 @@ class Solution(object):
             bit[i] += 1
             i += (i & -i)
 s = Solution()
-print(s.reversePairs([5,4,3,2,1]))
+print(s.reversePairs([1,3,2,3,1]))
