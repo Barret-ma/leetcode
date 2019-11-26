@@ -29,47 +29,23 @@ class Solution(object):
         :rtype: int
         """
         m = len(dungeon)
-        if m == 0: return -1
         n = len(dungeon[0])
+        
+        dp = [[float('inf') for _ in range(m + 1)] for _ in range(n + 1)]
 
-        dp = [[{'cur': 0, 'total': 0} for _ in range(n + 1)] for _ in range(m + 1)]
+        dp[m][n - 1] = 1
+        dp[m - 1][n] = 1
 
-        dp[0][0]['cur'] = dungeon[0][0]
-        dp[0][0]['total'] = dungeon[0][0]
+        for i in range(m - 1, -1, -1):
+            for j in range(n - 1, -1, -1):
+                dp[i][j] = max(1, min(dp[i + 1][j], dp[i][j + 1]) - dungeon[i][j])
 
+        return dp[0][0]
 
-
-        for x in range(1, m):
-            cur = dp[x - 1][0]['cur']
-            total = dp[x - 1][0]['total']
-            dp[x][0]['cur'] = cur + dungeon[x][0]
-            dp[x][0]['total'] = min(total, dp[x][0]['cur'])
-
-        for y in range(1, n):
-            cur = dp[0][y - 1]['cur']
-            total = dp[0][y - 1]['total']
-            dp[0][y]['cur'] = cur + dungeon[0][y]
-            dp[0][y]['total'] = min(total, dp[0][y]['cur'])
-
-        for i in range(1, m):
-            for j in range(1, n):
-                rightCur = dp[i][j - 1]['cur']
-                rightTotal = dp[i][j - 1]['total']
-                upCur = dp[i - 1][j]['cur']
-                upTotal = dp[i - 1][j]['total']
-                if dp[i][j - 1] + dungeon[i][j] > dp[i - 1][j] + dungeon[i][j]:
-                    dp[i][j] = dp[i][j - 1] if dp[i][j - 1] + dungeon[i][j] > 0 else dp[i][j - 1] + dungeon[i][j]
-                else:
-                    dp[i][j] = dp[i - 1][j] +  dungeon[i][j]
-                # minHealth = min(dp[i][j], minHealth)
-
-                # if dp[i][j] < 0:
-                #     minHealth = min(minHealth, dp[i][j])
-                
-
-        return abs(dp[m - 1][n - 1])
 
 
 s = Solution()
-route = [[-2, -3, 3], [-5, -10, 1], [10, 30, -5]]
-s.calculateMinimumHP(route)
+# route = [[-2, -3, 3], [-5, -10, 1], [10, 30, -5]]
+# route = [[-3, 4, 1], [-7, -22, -30], [-5, 1, -3]]
+route = [[1,-3,3],[0,-2,0],[-3,-3,-3]]
+print(s.calculateMinimumHP(route))
