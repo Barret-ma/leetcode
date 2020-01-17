@@ -50,5 +50,18 @@ def preorderLoop(root):
         root = root.right
     return result
 
+
+def preorderLoop1(root):
+    stack = []
+    result = []
+    while root or stack:
+        while root:
+            result.append(root.val)
+            stack.append(root)
+            root = root.left
+        node = stack.pop()
+        root = node.right
+    return result
+
 # print preorder(root)
 print preorderLoop(root)
