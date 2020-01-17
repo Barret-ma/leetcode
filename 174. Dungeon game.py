@@ -31,7 +31,7 @@ class Solution(object):
         m = len(dungeon)
         n = len(dungeon[0])
         
-        dp = [[float('inf') for _ in range(m + 1)] for _ in range(n + 1)]
+        dp = [[float('inf') for _ in range(n + 1)] for _ in range(m + 1)]
 
         dp[m][n - 1] = 1
         dp[m - 1][n] = 1
@@ -47,5 +47,5 @@ class Solution(object):
 s = Solution()
 # route = [[-2, -3, 3], [-5, -10, 1], [10, 30, -5]]
 # route = [[-3, 4, 1], [-7, -22, -30], [-5, 1, -3]]
-route = [[1,-3,3],[0,-2,0],[-3,-3,-3]]
+route = [[0, 0]]
 print(s.calculateMinimumHP(route))
