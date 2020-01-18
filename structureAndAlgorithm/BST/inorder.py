@@ -51,6 +51,19 @@ def inorderLoop(root):
         result.append(root.val)
         root = root.right
     return result
+
+
+def inorderLoop1(root):
+    stack = []
+    result = []
+    while root or stack:
+        while root:
+            stack.append(root)
+            root = root.right
+        node = stack.pop()
+        result.append(node.val)
+        root = node.right
+    return result
     
 def morrisInorder(root):
     cur, prev = root, None
